@@ -23,27 +23,41 @@ class TreeNode {
    * children, count how many nodes have even values. Returns that count as
    * an integer. */
   countEvens() {
-    let counter = 0;
-    let findEvens = [this];
+    let counter = this.val % 2 === 0 ? 1 : 0;
 
-    while (findEvens.length) {
-      let currVal = findEvens.shift();
-
-      if (currVal.val % 2 === 0) {
-        counter++;
-      }
-      for (let child of currVal.children) {
-        findEvens.push(child)
-      }
+    for (let child of this.children) {
+      counter += child.countEvens();
     }
-
     return counter;
+
+    // let counter = 0;
+    // let findEvens = [this];
+
+    // while (findEvens.length) {
+    //   let currVal = findEvens.shift();
+
+    //   if (currVal.val % 2 === 0) {
+    //     counter++;
+    //   }
+    //   for (let child of currVal.children) {
+    //     findEvens.push(child)
+    //   }
+    // }
+
+    // return counter;
   }
 
   /** numGreater(lowerBound): starting from the invoking node and moving through
    * its children, return a count of the number of nodes whose value is greater
    * than lowerBound. */
-  numGreater(lowerBound) {}
+  numGreater(lowerBound) {
+    let count = this.val > lowerBound ? 1 : 0;
+
+    for (let child of this.children) {
+      count += child.numGreater(lowerBound);
+    }
+    return count;
+  }
 }
 
 class Tree {
@@ -66,7 +80,11 @@ class Tree {
 
   /** numGreater(lowerBound): return a count of the number of nodes
    * whose value is greater than lowerBound. */
-  numGreater(lowerBound) {}
+  numGreater(lowerBound) {
+    if (this.root === null) return 0;
+
+    return this.root.numGreater(lowerBound);
+  }
 }
 
 module.exports = { Tree, TreeNode };
