@@ -30,18 +30,22 @@ class BinaryTreeNode {
   /** maxDepth(): return the maximum depth from the invoking node -- that is,
    * the length of the longest path from the invoking node to a leaf. */
   maxDepth() {
-    let depth = this.left || this.right ? 1 : 0;
-    let toVisitQueue = [this];
+    debugger;
+    let leftDepth = this.left ? this.left.maxDepth() : 0;
+    let rightDepth = this.right ? this.right.maxDepth() : 0;
+    console.log("this.val ===>",
+                 this.val)
 
-    while (toVisitQueue.length) {
-      let current = toVisitQueue.pop();
+    return Math.max(leftDepth, rightDepth) +1;
 
-      if (current.left || current.right) {
-        depth++;
-      }
-    }
+    //         6
+    //       5   5
+    //     4      3
+    //   3      2   1
+    // 2   1   1
 
-    return depth;
+
+    //
   }
 
   /** minDepth(): return the minimum depth from the invoking node -- that is,
